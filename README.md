@@ -24,3 +24,8 @@ chmod 644 /system/etc/security/cacerts/*
 chcon u:object_r:system_file:s0 /system/etc/security/cacerts/*
 rm -r /data/local/tmp/my-ca-copy
 ```
+
+# Thanks
+
+[file_picker↗](https://pub.dev/packages/file_picker)
+[root↗](https://pub.dev/packages/root)

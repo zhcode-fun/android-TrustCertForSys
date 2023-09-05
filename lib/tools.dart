@@ -49,14 +49,13 @@ class Tools {
   }
 
   Future<bool> setSystemTmpfs() async {
-    await Root.exec(cmd: """mkdir -m 700 /data/local/tmp/fun_zhcode_trustcert
+    await Root.exec(cmd: '''
+mkdir -m 700 /data/local/tmp/fun_zhcode_trustcert
 cp /system/etc/security/cacerts/* /data/local/tmp/fun_zhcode_trustcert/
 mount -t tmpfs tmpfs /system/etc/security/cacerts
 mv /data/local/tmp/fun_zhcode_trustcert/* /system/etc/security/cacerts/
-chown root:root /system/etc/security/cacerts/*
-chmod 644 /system/etc/security/cacerts/*
-chcon u:object_r:system_file:s0 /system/etc/security/cacerts/*
-rm -r /data/local/tmp/fun_zhcode_trustcert""");
+rm -r /data/local/tmp/fun_zhcode_trustcert
+''',);
     return checkSys();
   }
 
@@ -89,6 +88,10 @@ rm -r /data/local/tmp/fun_zhcode_trustcert""");
 
   Future<void> moveCertToSys(String sourcePath, String fileName) async {
     await Root.exec(
-        cmd: 'cp $sourcePath /system/etc/security/cacerts/$fileName');
+        cmd: '''cp $sourcePath /system/etc/security/cacerts/$fileName
+chown root:root /system/etc/security/cacerts/*
+chmod 644 /system/etc/security/cacerts/*
+chcon u:object_r:system_file:s0 /system/etc/security/cacerts/*
+''',);
   }
 }
